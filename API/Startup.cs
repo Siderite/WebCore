@@ -32,12 +32,15 @@ namespace WebCore.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvcWithDefaultRoute();
-
-            /*app.Run(async (context) =>
+            //it's imperative that this is declared before app.UseMvc
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
             {
-                await context.Response.WriteAsync("Hello World!");
-            });*/
+                AuthenticationScheme = "CustomAuth",
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = false
+            });
+
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
